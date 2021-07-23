@@ -20,8 +20,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.qiot.manufacturing.commons.domain.productionvalidation.ValidationResponseDTO;
+import io.qiot.manufacturing.commons.util.producer.ReplyToQueueNameProducer;
 import io.qiot.manufacturing.factory.productionvalidation.domain.event.ValidationCompletedEvent;
-import io.qiot.manufacturing.factory.productionvalidation.util.producer.ReplyToQueueNameProducer;
 import io.quarkus.runtime.StartupEvent;
 
 /**
