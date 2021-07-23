@@ -13,14 +13,14 @@ import javax.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 
-import io.qiot.manufacturing.factory.productionvalidation.domain.ProductionChainStageEnum;
-import io.qiot.manufacturing.factory.productionvalidation.domain.event.WeavingValidationRequestedEvent;
+import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
+import io.qiot.manufacturing.commons.domain.productionvalidation.WeavingValidationRequestEvent;
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
 
 @ApplicationScoped
 public class WeavingValidationMessageConsumer extends
-        AbstractValidationMessageConsumer<WeavingValidationRequestedEvent> {
+        AbstractValidationMessageConsumer<WeavingValidationRequestEvent> {
 
     @Inject
     Logger LOGGER;
@@ -28,7 +28,7 @@ public class WeavingValidationMessageConsumer extends
     @ConfigProperty(name = "qiot.production.chain.validation.weaving.queue")
     String validationQueueName;
     @Inject
-    Event<WeavingValidationRequestedEvent> validationRequestedEvent;
+    Event<WeavingValidationRequestEvent> validationRequestedEvent;
 
     private final ExecutorService scheduler = Executors
             .newSingleThreadExecutor();
@@ -58,8 +58,8 @@ public class WeavingValidationMessageConsumer extends
     }
 
     @Override
-    protected Class<WeavingValidationRequestedEvent> getEventClass() {
-        return WeavingValidationRequestedEvent.class;
+    protected Class<WeavingValidationRequestEvent> getEventClass() {
+        return WeavingValidationRequestEvent.class;
     }
 
     @Override

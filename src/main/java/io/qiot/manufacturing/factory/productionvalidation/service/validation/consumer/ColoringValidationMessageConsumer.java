@@ -12,13 +12,13 @@ import javax.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 
-import io.qiot.manufacturing.factory.productionvalidation.domain.ProductionChainStageEnum;
-import io.qiot.manufacturing.factory.productionvalidation.domain.event.ColoringValidationRequestedEvent;
+import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
+import io.qiot.manufacturing.commons.domain.productionvalidation.ColoringValidationRequestEvent;
 import io.quarkus.runtime.StartupEvent;
 
 @ApplicationScoped
 public class ColoringValidationMessageConsumer
-        extends AbstractValidationMessageConsumer<ColoringValidationRequestedEvent> {
+        extends AbstractValidationMessageConsumer<ColoringValidationRequestEvent> {
     
     @Inject
     Logger LOGGER;
@@ -26,7 +26,7 @@ public class ColoringValidationMessageConsumer
     @ConfigProperty(name = "qiot.production.chain.validation.coloring.queue")
     String validationQueueName;
     @Inject
-    Event<ColoringValidationRequestedEvent> validationRequestedEvent;
+    Event<ColoringValidationRequestEvent> validationRequestedEvent;
 
     private final ExecutorService scheduler = Executors
             .newSingleThreadExecutor();
@@ -49,8 +49,8 @@ public class ColoringValidationMessageConsumer
 
     
     @Override
-    protected Class<ColoringValidationRequestedEvent> getEventClass() {
-        return ColoringValidationRequestedEvent.class;
+    protected Class<ColoringValidationRequestEvent> getEventClass() {
+        return ColoringValidationRequestEvent.class;
     }
     
     @Override

@@ -5,8 +5,8 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 
-import io.qiot.manufacturing.factory.productionvalidation.domain.ProductionChainStageEnum;
-import io.qiot.manufacturing.factory.productionvalidation.domain.event.AbstractValidationRequestEvent;
+import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
+import io.qiot.manufacturing.commons.domain.productionvalidation.AbstractValidationRequestEvent;
 import io.qiot.manufacturing.factory.productionvalidation.domain.event.ValidationCompletedEvent;
 
 public abstract class AbstractValidationService<E extends AbstractValidationRequestEvent> {

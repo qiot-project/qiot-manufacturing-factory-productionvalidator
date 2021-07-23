@@ -5,25 +5,21 @@ package io.qiot.manufacturing.factory.productionvalidation.service.validation.pr
 
 import java.util.Objects;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
-import javax.jms.DeliveryMode;
 import javax.jms.JMSContext;
-import javax.jms.JMSException;
 import javax.jms.JMSProducer;
 import javax.jms.Queue;
 import javax.jms.Session;
-import javax.jms.TextMessage;
 
 import org.slf4j.Logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.qiot.manufacturing.factory.productionvalidation.domain.ValidationResponseDTO;
+import io.qiot.manufacturing.commons.domain.productionvalidation.ValidationResponseDTO;
 import io.qiot.manufacturing.factory.productionvalidation.domain.event.ValidationCompletedEvent;
 import io.qiot.manufacturing.factory.productionvalidation.util.producer.ReplyToQueueNameProducer;
 import io.quarkus.runtime.StartupEvent;

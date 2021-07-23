@@ -12,13 +12,13 @@ import javax.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 
-import io.qiot.manufacturing.factory.productionvalidation.domain.ProductionChainStageEnum;
-import io.qiot.manufacturing.factory.productionvalidation.domain.event.PackagingValidationRequestedEvent;
+import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
+import io.qiot.manufacturing.commons.domain.productionvalidation.PackagingValidationRequestEvent;
 import io.quarkus.runtime.StartupEvent;
 
 @ApplicationScoped
 public class PackagingValidationMessageConsumer
-        extends AbstractValidationMessageConsumer<PackagingValidationRequestedEvent> {
+        extends AbstractValidationMessageConsumer<PackagingValidationRequestEvent> {
     
     @Inject
     Logger LOGGER;
@@ -26,7 +26,7 @@ public class PackagingValidationMessageConsumer
     @ConfigProperty(name = "qiot.production.chain.validation.packaging.queue")
     String validationQueueName;
     @Inject
-    Event<PackagingValidationRequestedEvent> validationRequestedEvent;
+    Event<PackagingValidationRequestEvent> validationRequestedEvent;
 
     private final ExecutorService scheduler = Executors
             .newSingleThreadExecutor();
@@ -49,8 +49,8 @@ public class PackagingValidationMessageConsumer
 
     
     @Override
-    protected Class<PackagingValidationRequestedEvent> getEventClass() {
-        return PackagingValidationRequestedEvent.class;
+    protected Class<PackagingValidationRequestEvent> getEventClass() {
+        return PackagingValidationRequestEvent.class;
     }
     
     @Override

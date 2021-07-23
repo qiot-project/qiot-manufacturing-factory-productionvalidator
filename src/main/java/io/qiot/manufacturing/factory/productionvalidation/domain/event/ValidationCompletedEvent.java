@@ -2,7 +2,7 @@ package io.qiot.manufacturing.factory.productionvalidation.domain.event;
 
 import java.util.UUID;
 
-import io.qiot.manufacturing.factory.productionvalidation.domain.ProductionChainStageEnum;
+import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @RegisterForReflection
