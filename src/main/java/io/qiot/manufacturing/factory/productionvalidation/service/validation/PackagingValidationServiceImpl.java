@@ -10,19 +10,19 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 
 import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
-import io.qiot.manufacturing.commons.domain.productionvalidation.PackagingValidationRequestEvent;
+import io.qiot.manufacturing.commons.domain.productionvalidation.PackagingValidationRequestEventDTO;
 
 /**
  * @author andreabattaglia
  *
  */
 @ApplicationScoped
-public class PackagingValidationServiceImpl extends AbstractValidationService<PackagingValidationRequestEvent> {
+public class PackagingValidationServiceImpl extends AbstractValidationService<PackagingValidationRequestEventDTO> {
 
     @Inject
     Logger LOGGER;
 
-    void validate(@Observes PackagingValidationRequestEvent vrEvent) {
+    void validate(@Observes PackagingValidationRequestEventDTO vrEvent) {
         doValidate(vrEvent);
     }
     
@@ -32,8 +32,8 @@ public class PackagingValidationServiceImpl extends AbstractValidationService<Pa
     }
     
     @Override
-    protected Class<PackagingValidationRequestEvent> getEventClass() {
-        return PackagingValidationRequestEvent.class;
+    protected Class<PackagingValidationRequestEventDTO> getEventClass() {
+        return PackagingValidationRequestEventDTO.class;
     }
     
     @Override
@@ -42,7 +42,7 @@ public class PackagingValidationServiceImpl extends AbstractValidationService<Pa
     }
     
     @Override
-    protected boolean validateMetrics(PackagingValidationRequestEvent event) {
+    protected boolean validateMetrics(PackagingValidationRequestEventDTO event) {
         return true;
     }
 }

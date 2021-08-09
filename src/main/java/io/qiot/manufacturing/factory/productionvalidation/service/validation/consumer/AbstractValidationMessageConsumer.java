@@ -18,9 +18,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
-import io.qiot.manufacturing.commons.domain.productionvalidation.AbstractValidationRequestEvent;
+import io.qiot.manufacturing.commons.domain.productionvalidation.AbstractValidationRequestEventDTO;
 
-public abstract class AbstractValidationMessageConsumer<E extends AbstractValidationRequestEvent>
+public abstract class AbstractValidationMessageConsumer<E extends AbstractValidationRequestEventDTO>
         implements Runnable {
 
     @Inject

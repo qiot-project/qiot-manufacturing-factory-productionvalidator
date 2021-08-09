@@ -10,19 +10,19 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 
 import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
-import io.qiot.manufacturing.commons.domain.productionvalidation.ColoringValidationRequestEvent;
+import io.qiot.manufacturing.commons.domain.productionvalidation.ColoringValidationRequestEventDTO;
 
 /**
  * @author andreabattaglia
  *
  */
 @ApplicationScoped
-public class ColoringValidationServiceImpl extends AbstractValidationService<ColoringValidationRequestEvent> {
+public class ColoringValidationServiceImpl extends AbstractValidationService<ColoringValidationRequestEventDTO> {
 
     @Inject
     Logger LOGGER;
 
-    void validate(@Observes ColoringValidationRequestEvent vrEvent) {
+    void validate(@Observes ColoringValidationRequestEventDTO vrEvent) {
         doValidate(vrEvent);
     }
     
@@ -32,8 +32,8 @@ public class ColoringValidationServiceImpl extends AbstractValidationService<Col
     }
     
     @Override
-    protected Class<ColoringValidationRequestEvent> getEventClass() {
-        return ColoringValidationRequestEvent.class;
+    protected Class<ColoringValidationRequestEventDTO> getEventClass() {
+        return ColoringValidationRequestEventDTO.class;
     }
     
     @Override
@@ -42,7 +42,7 @@ public class ColoringValidationServiceImpl extends AbstractValidationService<Col
     }
     
     @Override
-    protected boolean validateMetrics(ColoringValidationRequestEvent event) {
+    protected boolean validateMetrics(ColoringValidationRequestEventDTO event) {
         return true;
     }
 }

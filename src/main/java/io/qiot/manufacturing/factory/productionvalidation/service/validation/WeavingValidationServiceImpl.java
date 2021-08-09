@@ -10,19 +10,19 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 
 import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
-import io.qiot.manufacturing.commons.domain.productionvalidation.WeavingValidationRequestEvent;
+import io.qiot.manufacturing.commons.domain.productionvalidation.WeavingValidationRequestEventDTO;
 
 /**
  * @author andreabattaglia
  *
  */
 @ApplicationScoped
-public class WeavingValidationServiceImpl extends AbstractValidationService<WeavingValidationRequestEvent> {
+public class WeavingValidationServiceImpl extends AbstractValidationService<WeavingValidationRequestEventDTO> {
 
     @Inject
     Logger LOGGER;
 
-    void validate(@Observes WeavingValidationRequestEvent vrEvent) {
+    void validate(@Observes WeavingValidationRequestEventDTO vrEvent) {
         doValidate(vrEvent);
     }
     
@@ -32,8 +32,8 @@ public class WeavingValidationServiceImpl extends AbstractValidationService<Weav
     }
     
     @Override
-    protected Class<WeavingValidationRequestEvent> getEventClass() {
-        return WeavingValidationRequestEvent.class;
+    protected Class<WeavingValidationRequestEventDTO> getEventClass() {
+        return WeavingValidationRequestEventDTO.class;
     }
     
     @Override
@@ -42,7 +42,7 @@ public class WeavingValidationServiceImpl extends AbstractValidationService<Weav
     }
     
     @Override
-    protected boolean validateMetrics(WeavingValidationRequestEvent event) {
+    protected boolean validateMetrics(WeavingValidationRequestEventDTO event) {
         return true;
     }
 }

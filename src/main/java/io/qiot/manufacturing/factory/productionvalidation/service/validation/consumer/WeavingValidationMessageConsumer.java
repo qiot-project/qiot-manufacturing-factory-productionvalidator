@@ -14,13 +14,13 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 
 import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
-import io.qiot.manufacturing.commons.domain.productionvalidation.WeavingValidationRequestEvent;
+import io.qiot.manufacturing.commons.domain.productionvalidation.WeavingValidationRequestEventDTO;
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
 
 @ApplicationScoped
 public class WeavingValidationMessageConsumer extends
-        AbstractValidationMessageConsumer<WeavingValidationRequestEvent> {
+        AbstractValidationMessageConsumer<WeavingValidationRequestEventDTO> {
 
     @Inject
     Logger LOGGER;
@@ -28,7 +28,7 @@ public class WeavingValidationMessageConsumer extends
     @ConfigProperty(name = "qiot.production.chain.validation.weaving.queue")
     String validationQueueName;
     @Inject
-    Event<WeavingValidationRequestEvent> validationRequestedEvent;
+    Event<WeavingValidationRequestEventDTO> validationRequestedEvent;
 
     private final ExecutorService scheduler = Executors
             .newSingleThreadExecutor();
@@ -58,8 +58,8 @@ public class WeavingValidationMessageConsumer extends
     }
 
     @Override
-    protected Class<WeavingValidationRequestEvent> getEventClass() {
-        return WeavingValidationRequestEvent.class;
+    protected Class<WeavingValidationRequestEventDTO> getEventClass() {
+        return WeavingValidationRequestEventDTO.class;
     }
 
     @Override

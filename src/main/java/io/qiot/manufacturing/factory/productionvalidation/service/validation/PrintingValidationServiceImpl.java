@@ -10,19 +10,19 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 
 import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
-import io.qiot.manufacturing.commons.domain.productionvalidation.PrintingValidationRequestEvent;
+import io.qiot.manufacturing.commons.domain.productionvalidation.PrintingValidationRequestEventDTO;
 
 /**
  * @author andreabattaglia
  *
  */
 @ApplicationScoped
-public class PrintingValidationServiceImpl extends AbstractValidationService<PrintingValidationRequestEvent> {
+public class PrintingValidationServiceImpl extends AbstractValidationService<PrintingValidationRequestEventDTO> {
 
     @Inject
     Logger LOGGER;
 
-    void validate(@Observes PrintingValidationRequestEvent vrEvent) {
+    void validate(@Observes PrintingValidationRequestEventDTO vrEvent) {
         doValidate(vrEvent);
     }
     
@@ -32,8 +32,8 @@ public class PrintingValidationServiceImpl extends AbstractValidationService<Pri
     }
     
     @Override
-    protected Class<PrintingValidationRequestEvent> getEventClass() {
-        return PrintingValidationRequestEvent.class;
+    protected Class<PrintingValidationRequestEventDTO> getEventClass() {
+        return PrintingValidationRequestEventDTO.class;
     }
     
     @Override
@@ -42,7 +42,7 @@ public class PrintingValidationServiceImpl extends AbstractValidationService<Pri
     }
     
     @Override
-    protected boolean validateMetrics(PrintingValidationRequestEvent event) {
+    protected boolean validateMetrics(PrintingValidationRequestEventDTO event) {
         return true;
     }
 }
