@@ -14,7 +14,7 @@ import io.qiot.manufacturing.commons.domain.productline.ProductLineDTO;
  * @author andreabattaglia
  *
  */
-@Path("/v1/productline")
+@Path("/v1/productline/service")
 @RegisterRestClient(configKey = "factoryproductline-api")
 public interface FactoryProductLineServiceClient {
 //
