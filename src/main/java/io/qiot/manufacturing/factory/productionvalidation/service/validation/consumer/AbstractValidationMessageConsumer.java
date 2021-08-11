@@ -20,6 +20,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
 import io.qiot.manufacturing.commons.domain.productionvalidation.AbstractValidationRequestEventDTO;
 
+/**
+ * @author andreabattaglia
+ *
+ */
 public abstract class AbstractValidationMessageConsumer<E extends AbstractValidationRequestEventDTO>
         implements Runnable {
 
@@ -58,7 +62,9 @@ public abstract class AbstractValidationMessageConsumer<E extends AbstractValida
             Message message = consumer.receive();
             try {
                 String messagePayload = message.getBody(String.class);
-            getLogger().info("Received validation request for stage {}:\n\n{}",getStage(),messagePayload);
+                getLogger().debug(
+                        "Received validation request for stage {}:\n\n{}",
+                        getStage(), messagePayload);
                 E messageDTO = MAPPER.readValue(messagePayload,
                         getEventClass());
                 validationRequestedEvent.fire(messageDTO);
@@ -74,12 +80,12 @@ public abstract class AbstractValidationMessageConsumer<E extends AbstractValida
             }
         }
     }
-    
+
     protected abstract Logger getLogger();
 
     protected abstract Class<E> getEventClass();
-    
+
     protected abstract String getValidationQueueName();
-    
+
     protected abstract ProductionChainStageEnum getStage();
 }

@@ -50,18 +50,18 @@ public class ValidationMessageProducer {
     // @PostConstruct
     // void init() {
     void init(@Observes StartupEvent ev) {
-        LOGGER.info("Bootstrapping validation event producer...");
+        LOGGER.debug("Bootstrapping validation event producer...");
         if (Objects.nonNull(context))
             context.close();
         context = connectionFactory.createContext(Session.AUTO_ACKNOWLEDGE);
 
         producer = context.createProducer();
-        LOGGER.info("Bootstrap completed");
+        LOGGER.debug("Bootstrap completed");
 
     }
 
     void produce(@Observes ValidationCompletedEvent event) {
-        LOGGER.info("Sending out validation results "
+        LOGGER.debug("Sending out validation results "
                 + "for STAGE {} on ITEM {} / PRODUCTLINE {} from MACHINERY {}",
                 event.stage, event.itemId, event.productLineId,
                 event.machineryId);

@@ -16,10 +16,14 @@ import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
 import io.qiot.manufacturing.commons.domain.productionvalidation.PackagingValidationRequestEventDTO;
 import io.quarkus.runtime.StartupEvent;
 
+/**
+ * @author andreabattaglia
+ *
+ */
 @ApplicationScoped
-public class PackagingValidationMessageConsumer
-        extends AbstractValidationMessageConsumer<PackagingValidationRequestEventDTO> {
-    
+public class PackagingValidationMessageConsumer extends
+        AbstractValidationMessageConsumer<PackagingValidationRequestEventDTO> {
+
     @Inject
     Logger LOGGER;
 
@@ -41,23 +45,22 @@ public class PackagingValidationMessageConsumer
         scheduler.shutdown();
         doDestroy();
     }
-    
+
     @Override
     protected Logger getLogger() {
         return LOGGER;
     }
 
-    
     @Override
     protected Class<PackagingValidationRequestEventDTO> getEventClass() {
         return PackagingValidationRequestEventDTO.class;
     }
-    
+
     @Override
     protected String getValidationQueueName() {
         return validationQueueName;
     }
-    
+
     @Override
     protected ProductionChainStageEnum getStage() {
         return ProductionChainStageEnum.PACKAGING;

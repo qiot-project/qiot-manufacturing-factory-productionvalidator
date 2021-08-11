@@ -11,38 +11,45 @@ import org.slf4j.Logger;
 
 import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
 import io.qiot.manufacturing.commons.domain.productionvalidation.PackagingValidationRequestEventDTO;
+import io.qiot.manufacturing.commons.domain.productline.ProductLineDTO;
 
 /**
  * @author andreabattaglia
  *
  */
 @ApplicationScoped
-public class PackagingValidationServiceImpl extends AbstractValidationService<PackagingValidationRequestEventDTO> {
+public class PackagingValidationServiceImpl
+        extends AbstractValidationService<PackagingValidationRequestEventDTO> {
 
     @Inject
     Logger LOGGER;
 
-    void validate(@Observes PackagingValidationRequestEventDTO vrEvent) {
+    void onValidationRequest(
+            @Observes PackagingValidationRequestEventDTO vrEvent) {
         doValidate(vrEvent);
     }
-    
+
     @Override
     protected Logger getLogger() {
         return LOGGER;
     }
-    
+
     @Override
     protected Class<PackagingValidationRequestEventDTO> getEventClass() {
         return PackagingValidationRequestEventDTO.class;
     }
-    
+
     @Override
     protected ProductionChainStageEnum getStage() {
         return ProductionChainStageEnum.PACKAGING;
     }
-    
+
     @Override
-    protected boolean validateMetrics(PackagingValidationRequestEventDTO event) {
+    protected boolean validateMetrics(PackagingValidationRequestEventDTO event,
+            ProductLineDTO productLine) {
+        if (event.data.packaging < productLine.packaging.min
+                || event.data.packaging > productLine.packaging.max)
+            return false;
         return true;
     }
 }

@@ -18,6 +18,10 @@ import io.qiot.manufacturing.commons.domain.productionvalidation.WeavingValidati
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
 
+/**
+ * @author andreabattaglia
+ *
+ */
 @ApplicationScoped
 public class WeavingValidationMessageConsumer extends
         AbstractValidationMessageConsumer<WeavingValidationRequestEventDTO> {
@@ -66,7 +70,7 @@ public class WeavingValidationMessageConsumer extends
     protected String getValidationQueueName() {
         return validationQueueName;
     }
-    
+
     @Override
     protected ProductionChainStageEnum getStage() {
         return ProductionChainStageEnum.WEAVING;

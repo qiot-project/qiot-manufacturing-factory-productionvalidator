@@ -16,10 +16,14 @@ import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
 import io.qiot.manufacturing.commons.domain.productionvalidation.ColoringValidationRequestEventDTO;
 import io.quarkus.runtime.StartupEvent;
 
+/**
+ * @author andreabattaglia
+ *
+ */
 @ApplicationScoped
-public class ColoringValidationMessageConsumer
-        extends AbstractValidationMessageConsumer<ColoringValidationRequestEventDTO> {
-    
+public class ColoringValidationMessageConsumer extends
+        AbstractValidationMessageConsumer<ColoringValidationRequestEventDTO> {
+
     @Inject
     Logger LOGGER;
 
@@ -41,23 +45,22 @@ public class ColoringValidationMessageConsumer
         scheduler.shutdown();
         doDestroy();
     }
-    
+
     @Override
     protected Logger getLogger() {
         return LOGGER;
     }
 
-    
     @Override
     protected Class<ColoringValidationRequestEventDTO> getEventClass() {
         return ColoringValidationRequestEventDTO.class;
     }
-    
+
     @Override
     protected String getValidationQueueName() {
         return validationQueueName;
     }
-    
+
     @Override
     protected ProductionChainStageEnum getStage() {
         return ProductionChainStageEnum.COLORING;

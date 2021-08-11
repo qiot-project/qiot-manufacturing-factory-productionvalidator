@@ -16,10 +16,14 @@ import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
 import io.qiot.manufacturing.commons.domain.productionvalidation.PrintingValidationRequestEventDTO;
 import io.quarkus.runtime.StartupEvent;
 
+/**
+ * @author andreabattaglia
+ *
+ */
 @ApplicationScoped
-public class PrintingValidationMessageConsumer
-        extends AbstractValidationMessageConsumer<PrintingValidationRequestEventDTO> {
-    
+public class PrintingValidationMessageConsumer extends
+        AbstractValidationMessageConsumer<PrintingValidationRequestEventDTO> {
+
     @Inject
     Logger LOGGER;
 
@@ -41,23 +45,22 @@ public class PrintingValidationMessageConsumer
         scheduler.shutdown();
         doDestroy();
     }
-    
+
     @Override
     protected Logger getLogger() {
         return LOGGER;
     }
 
-    
     @Override
     protected Class<PrintingValidationRequestEventDTO> getEventClass() {
         return PrintingValidationRequestEventDTO.class;
     }
-    
+
     @Override
     protected String getValidationQueueName() {
         return validationQueueName;
     }
-    
+
     @Override
     protected ProductionChainStageEnum getStage() {
         return ProductionChainStageEnum.PRINTING;

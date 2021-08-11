@@ -11,38 +11,51 @@ import org.slf4j.Logger;
 
 import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
 import io.qiot.manufacturing.commons.domain.productionvalidation.ColoringValidationRequestEventDTO;
+import io.qiot.manufacturing.commons.domain.productline.ProductLineDTO;
 
 /**
  * @author andreabattaglia
  *
  */
 @ApplicationScoped
-public class ColoringValidationServiceImpl extends AbstractValidationService<ColoringValidationRequestEventDTO> {
+public class ColoringValidationServiceImpl
+        extends AbstractValidationService<ColoringValidationRequestEventDTO> {
 
     @Inject
     Logger LOGGER;
 
-    void validate(@Observes ColoringValidationRequestEventDTO vrEvent) {
+    void onValidationRequest(
+            @Observes ColoringValidationRequestEventDTO vrEvent) {
         doValidate(vrEvent);
     }
-    
+
     @Override
     protected Logger getLogger() {
         return LOGGER;
     }
-    
+
     @Override
     protected Class<ColoringValidationRequestEventDTO> getEventClass() {
         return ColoringValidationRequestEventDTO.class;
     }
-    
+
     @Override
     protected ProductionChainStageEnum getStage() {
         return ProductionChainStageEnum.COLORING;
     }
-    
+
     @Override
-    protected boolean validateMetrics(ColoringValidationRequestEventDTO event) {
+    protected boolean validateMetrics(ColoringValidationRequestEventDTO event,
+            ProductLineDTO productLine) {
+        if (event.data.red < productLine.color.redMin
+                || event.data.red > productLine.color.redMax)
+            return false;
+        if (event.data.green < productLine.color.greenMin
+                || event.data.green > productLine.color.greenMax)
+            return false;
+        if (event.data.blue < productLine.color.blueMin
+                || event.data.blue > productLine.color.blueMax)
+            return false;
         return true;
     }
 }

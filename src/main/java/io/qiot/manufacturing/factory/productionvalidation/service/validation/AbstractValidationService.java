@@ -7,36 +7,52 @@ import org.slf4j.Logger;
 
 import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
 import io.qiot.manufacturing.commons.domain.productionvalidation.AbstractValidationRequestEventDTO;
+import io.qiot.manufacturing.commons.domain.productline.ProductLineDTO;
 import io.qiot.manufacturing.factory.productionvalidation.domain.event.ValidationCompletedEvent;
+import io.qiot.manufacturing.factory.productionvalidation.service.productline.ProductLineService;
 
+/**
+ * @author andreabattaglia
+ *
+ */
 public abstract class AbstractValidationService<E extends AbstractValidationRequestEventDTO> {
 
     @Inject
     Event<ValidationCompletedEvent> event;
 
+    @Inject
+    ProductLineService productLineService;
+
     protected void doValidate(E vrEvent) {
 
-        getLogger().info("Received validation request "
+        getLogger().debug("Received validation request "
                 + "for STAGE {} on ITEM {} / PRODUCTLINE {} from MACHINERY {}",
                 vrEvent.stage, vrEvent.itemId, vrEvent.productLineId,
                 vrEvent.machineryId);
-        
-        ValidationCompletedEvent vcEvent = new ValidationCompletedEvent();
-        vcEvent.machineryId = vrEvent.machineryId;
-        vcEvent.itemId = vrEvent.itemId;
-        vcEvent.productLineId = vrEvent.productLineId;
-        vcEvent.stage = vrEvent.stage;
-        vcEvent.valid = validateMetrics(vrEvent);
 
-        /*
-         * required in case we want to use JMS replyTo Header
-         */
-        // vcEvent.replyToQueueName = vrEvent.replyToQueueName;
-        getLogger().info(
-                "Validation {} for STAGE {} on ITEM {} / PRODUCTLINE {} from MACHINERY {}",
-                vcEvent.valid ? "success" : "failure", vrEvent.stage,
-                vrEvent.itemId, vrEvent.productLineId, vrEvent.machineryId);
-        event.fire(vcEvent);
+        try {
+            ValidationCompletedEvent vcEvent = new ValidationCompletedEvent();
+            vcEvent.machineryId = vrEvent.machineryId;
+            vcEvent.itemId = vrEvent.itemId;
+            vcEvent.productLineId = vrEvent.productLineId;
+            vcEvent.stage = vrEvent.stage;
+            ProductLineDTO productLine = productLineService
+                    .getProductLine(vcEvent.productLineId);
+            vcEvent.valid = validateMetrics(vrEvent, productLine);
+
+            /*
+             * required in case we want to use JMS replyTo Header
+             */
+            // vcEvent.replyToQueueName = vrEvent.replyToQueueName;
+            getLogger().debug(
+                    "Validation {} for STAGE {} on ITEM {} / PRODUCTLINE {} from MACHINERY {}",
+                    vcEvent.valid ? "success" : "failure", vrEvent.stage,
+                    vrEvent.itemId, vrEvent.productLineId, vrEvent.machineryId);
+            event.fire(vcEvent);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     protected abstract Logger getLogger();
@@ -45,5 +61,6 @@ public abstract class AbstractValidationService<E extends AbstractValidationRequ
 
     protected abstract ProductionChainStageEnum getStage();
 
-    protected abstract boolean validateMetrics(E event);
+    protected abstract boolean validateMetrics(E event,
+            ProductLineDTO productLine);
 }

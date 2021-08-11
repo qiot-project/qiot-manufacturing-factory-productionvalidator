@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
@@ -15,6 +16,7 @@ import io.qiot.manufacturing.commons.domain.productline.ProductLineDTO;
  * @author andreabattaglia
  *
  */
+@ApplicationScoped
 public class ProductLineServiceImpl implements ProductLineService {
 
     @Inject
@@ -33,12 +35,12 @@ public class ProductLineServiceImpl implements ProductLineService {
     @Override
     public ProductLineDTO getProductLine(UUID productLineId) {
         if (!productLines.containsKey(productLineId)) {
-            LOGGER.info(
+            LOGGER.debug(
                     "Product Line id {} is missing, contacting ProductLineService...",
                     productLineId);
             productLines.put(productLineId, factoryProductLineServiceClient
                     .getProductLineById(productLineId));
-            LOGGER.info(
+            LOGGER.debug(
                     "Product Line id {} downloaded from ProductLineService.",
                     productLineId);
         }

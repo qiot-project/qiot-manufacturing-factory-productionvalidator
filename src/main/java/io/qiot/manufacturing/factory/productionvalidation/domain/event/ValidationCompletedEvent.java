@@ -5,6 +5,10 @@ import java.util.UUID;
 import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
+/**
+ * @author andreabattaglia
+ *
+ */
 @RegisterForReflection
 public class ValidationCompletedEvent {
     public UUID productLineId;
@@ -15,5 +19,5 @@ public class ValidationCompletedEvent {
     /*
      * required in case we want to use JMS replyTo Header
      */
-//    public String replyToQueueName;
+    // public String replyToQueueName;
 }
