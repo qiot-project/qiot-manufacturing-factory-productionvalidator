@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
-import io.qiot.manufacturing.commons.domain.productline.ProductLineDTO;
+import io.qiot.manufacturing.all.commons.domain.productline.ProductLineDTO;
 
 /**
  * @author andreabattaglia

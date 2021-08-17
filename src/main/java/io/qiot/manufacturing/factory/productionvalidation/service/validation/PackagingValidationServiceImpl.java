@@ -9,9 +9,9 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 
-import io.qiot.manufacturing.commons.domain.production.ProductionChainStageEnum;
+import io.qiot.manufacturing.all.commons.domain.production.ProductionChainStageEnum;
+import io.qiot.manufacturing.all.commons.domain.productline.ProductLineDTO;
 import io.qiot.manufacturing.commons.domain.productionvalidation.PackagingValidationRequestEventDTO;
-import io.qiot.manufacturing.commons.domain.productline.ProductLineDTO;
 
 /**
  * @author andreabattaglia

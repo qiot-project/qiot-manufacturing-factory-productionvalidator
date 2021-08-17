@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.slf4j.Logger;
 
-import io.qiot.manufacturing.commons.domain.productline.ProductLineDTO;
+import io.qiot.manufacturing.all.commons.domain.productline.ProductLineDTO;
 
 /**
  * @author andreabattaglia
