@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import io.qiot.manufacturing.all.commons.domain.production.ProductionChainStageEnum;
 import io.qiot.manufacturing.all.commons.domain.productline.ProductLineDTO;
 import io.qiot.manufacturing.commons.domain.productionvalidation.AbstractValidationRequestEventDTO;
-import io.qiot.manufacturing.factory.productionvalidation.domain.event.ValidationCompletedEvent;
+import io.qiot.manufacturing.factory.productionvalidation.domain.event.ValidationCompletedEventDTO;
 import io.qiot.manufacturing.factory.productionvalidation.service.productline.ProductLineService;
 
 /**
@@ -18,7 +18,7 @@ import io.qiot.manufacturing.factory.productionvalidation.service.productline.Pr
 public abstract class AbstractValidationService<E extends AbstractValidationRequestEventDTO> {
 
     @Inject
-    Event<ValidationCompletedEvent> event;
+    Event<ValidationCompletedEventDTO> event;
 
     @Inject
     ProductLineService productLineService;
@@ -31,7 +31,7 @@ public abstract class AbstractValidationService<E extends AbstractValidationRequ
                 vrEvent.machineryId);
 
         try {
-            ValidationCompletedEvent vcEvent = new ValidationCompletedEvent();
+            ValidationCompletedEventDTO vcEvent = new ValidationCompletedEventDTO();
             vcEvent.machineryId = vrEvent.machineryId;
             vcEvent.itemId = vrEvent.itemId;
             vcEvent.productLineId = vrEvent.productLineId;

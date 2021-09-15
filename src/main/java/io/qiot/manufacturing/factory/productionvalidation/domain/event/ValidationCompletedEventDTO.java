@@ -10,7 +10,7 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
  *
  */
 @RegisterForReflection
-public class ValidationCompletedEvent {
+public class ValidationCompletedEventDTO {
     public UUID productLineId;
     public String machineryId;
     public int itemId;

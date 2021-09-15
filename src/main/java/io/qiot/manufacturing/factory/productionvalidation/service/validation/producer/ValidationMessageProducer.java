@@ -20,8 +20,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.qiot.manufacturing.commons.domain.productionvalidation.ValidationResponseDTO;
-import io.qiot.manufacturing.commons.util.producer.ValidationReplyToQueueNameProducer;
-import io.qiot.manufacturing.factory.productionvalidation.domain.event.ValidationCompletedEvent;
+import io.qiot.manufacturing.factory.commons.util.producer.ValidationReplyToQueueNameProducer;
+import io.qiot.manufacturing.factory.productionvalidation.domain.event.ValidationCompletedEventDTO;
 import io.quarkus.runtime.StartupEvent;
 
 /**
@@ -60,7 +60,7 @@ public class ValidationMessageProducer {
 
     }
 
-    void produce(@Observes ValidationCompletedEvent event) {
+    void produce(@Observes ValidationCompletedEventDTO event) {
         LOGGER.debug("Sending out validation results "
                 + "for STAGE {} on ITEM {} / PRODUCTLINE {} from MACHINERY {}",
                 event.stage, event.itemId, event.productLineId,
