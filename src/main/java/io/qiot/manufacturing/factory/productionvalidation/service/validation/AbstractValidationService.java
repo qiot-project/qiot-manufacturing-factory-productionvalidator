@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 
 import io.qiot.manufacturing.all.commons.domain.production.ProductionChainStageEnum;
 import io.qiot.manufacturing.all.commons.domain.productline.ProductLineDTO;
-import io.qiot.manufacturing.commons.domain.productionvalidation.AbstractValidationRequestEventDTO;
+import io.qiot.manufacturing.factory.commons.domain.productionvalidation.AbstractValidationRequestEventDTO;
 import io.qiot.manufacturing.factory.productionvalidation.domain.event.ValidationCompletedEventDTO;
 import io.qiot.manufacturing.factory.productionvalidation.service.productline.ProductLineService;
 

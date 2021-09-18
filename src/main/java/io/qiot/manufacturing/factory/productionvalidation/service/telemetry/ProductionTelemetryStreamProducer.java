@@ -11,7 +11,6 @@ import javax.inject.Inject;
 
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
-import org.eclipse.microprofile.reactive.messaging.Outgoing;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.slf4j.Logger;
 
@@ -72,8 +71,9 @@ public class ProductionTelemetryStreamProducer extends
     }
 
     public void process(@Observes ValidationCompletedEventDTO event)
-            throws TelemetryDataValidationException, TelemetryTransformationException {
-        LOGGER.info(
+            throws TelemetryDataValidationException,
+            TelemetryTransformationException {
+        LOGGER.debug(
                 "Received production stage validation. Streaming to the datacenter.",
                 event);
         if (factoryId == null)
@@ -86,6 +86,9 @@ public class ProductionTelemetryStreamProducer extends
         telemetry.stage = event.stage;
         telemetry.success = event.valid;
         telemetry.time = Instant.now();
+
+        LOGGER.info("Sending outcome telemetry to the stream service: {}",
+                telemetry);
 
         telemetryEmitter.send(serialize(telemetry));
     }
