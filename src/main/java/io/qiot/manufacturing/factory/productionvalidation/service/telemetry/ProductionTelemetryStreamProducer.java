@@ -74,7 +74,7 @@ public class ProductionTelemetryStreamProducer extends
             throws TelemetryDataValidationException,
             TelemetryTransformationException {
         LOGGER.debug(
-                "Received production stage validation. Streaming to the datacenter.",
+                "Received production stage validation. Streaming to the datacenter. {}",
                 event);
         if (factoryId == null)
             factoryId = facilityManagerClient.getFactoryId();

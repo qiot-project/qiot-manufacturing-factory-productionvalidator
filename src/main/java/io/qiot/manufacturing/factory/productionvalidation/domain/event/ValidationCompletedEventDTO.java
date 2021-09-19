@@ -20,4 +20,21 @@ public class ValidationCompletedEventDTO {
      * required in case we want to use JMS replyTo Header
      */
     // public String replyToQueueName;
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("ValidationCompletedEventDTO [productLineId=");
+        builder.append(productLineId);
+        builder.append(", machineryId=");
+        builder.append(machineryId);
+        builder.append(", itemId=");
+        builder.append(itemId);
+        builder.append(", stage=");
+        builder.append(stage);
+        builder.append(", valid=");
+        builder.append(valid);
+        builder.append("]");
+        return builder.toString();
+    }
+    
 }

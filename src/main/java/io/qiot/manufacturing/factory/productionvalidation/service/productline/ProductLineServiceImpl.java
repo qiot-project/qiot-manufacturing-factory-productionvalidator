@@ -40,7 +40,7 @@ public class ProductLineServiceImpl implements ProductLineService {
                     productLineId);
             productLines.put(productLineId, factoryProductLineServiceClient
                     .getProductLineById(productLineId));
-            LOGGER.debug(
+            LOGGER.info(
                     "Product Line id {} downloaded from ProductLineService.",
                     productLineId);
         }
