@@ -23,9 +23,6 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
  */
 @Path("/v1/factory")
 @RegisterRestClient(configKey = "facility-manager-api")
-@RegisterForReflection(targets = { IIOImageProvider.class,
-        SseEventProvider.class, FormUrlEncodedProvider.class,
-        SourceProvider.class, DocumentProvider.class, JaxrsFormProvider.class })
 public interface FacilityManagerClient {
 
     @GET
