@@ -19,7 +19,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qiot.manufacturing.datacenter.commons.domain.telemetry.production.StageProductionValidationTelemetryDTO;
 import io.qiot.manufacturing.datacenter.commons.exception.telemetry.TelemetryDataValidationException;
 import io.qiot.manufacturing.datacenter.commons.exception.telemetry.TelemetryTransformationException;
-import io.qiot.manufacturing.datacenter.commons.service.telemetry.AbstractTelemetryStreamProducer;
 import io.qiot.manufacturing.factory.productionvalidation.domain.event.ValidationCompletedEventDTO;
 import io.qiot.manufacturing.factory.productionvalidation.service.client.FacilityManagerClient;
 
@@ -28,8 +27,7 @@ import io.qiot.manufacturing.factory.productionvalidation.service.client.Facilit
  *
  */
 @ApplicationScoped
-public class ProductionTelemetryStreamProducer extends
-        AbstractTelemetryStreamProducer<StageProductionValidationTelemetryDTO> {
+public class ProductionTelemetryStreamProducer {
 
     @Inject
     Logger LOGGER;
@@ -43,26 +41,12 @@ public class ProductionTelemetryStreamProducer extends
 
     @Inject
     @Channel("telemetryproduction")
-    Emitter<String> telemetryEmitter;
+    Emitter<StageProductionValidationTelemetryDTO> telemetryEmitter;
 
     private UUID factoryId;
 
     @Inject
     Event<StageProductionValidationTelemetryDTO> measurementReceivedEvent;
-
-    // @Incoming("pollution")
-    // public void process(String data) throws TelemetryDataValidationException
-    // {
-    // LOGGER.info("Consumed message {} from the POLLUTION Stream", data);
-    // // PollutionTelemetry gm = converter.jsonToMeasurement(data);
-    // PollutionTelemetry pm;
-    // try {
-    // pm = MAPPER.readValue(data, PollutionTelemetry.class);
-    // } catch (Exception e) {
-    // throw new TelemetryDataValidationException(e);
-    // }
-    // measurementReceivedEvent.fire(pm);
-    // }
 
     @PostConstruct
     void init() {
@@ -90,6 +74,6 @@ public class ProductionTelemetryStreamProducer extends
         LOGGER.info("Sending outcome telemetry to the stream service: {}",
                 telemetry);
 
-        telemetryEmitter.send(serialize(telemetry));
+        telemetryEmitter.send(telemetry);
     }
 }
